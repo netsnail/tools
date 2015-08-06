@@ -1,3 +1,4 @@
+<?php header("Content-Type: text/html; charset=UTF-8"); ?>
 <style>
 h1 { text-align:center; }
 table,tr,th,td { border-collapse:collapse;border:1px solid gray; }
@@ -7,7 +8,7 @@ div { margin-top:20px; text-align:center; }
 <?php
 $perpagenum = 20;
 
-$conn = mysql_connect('192.168.1.242', 'root', 'root'); mysql_select_db('findbugs', $conn);
+$conn = mysql_connect('192.168.1.242', 'root', 'root'); mysql_select_db('findbugs', $conn); mysql_query("set names utf8");
 $total = mysql_fetch_array(mysql_query("select count(*) from bugs"));
 
 $Total = $total[0]; $Totalpage = ceil($Total / $perpagenum);
