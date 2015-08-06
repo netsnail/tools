@@ -2,6 +2,7 @@
 <style>
 h1 { text-align:center; }
 table,tr,th,td { border-collapse:collapse;border:1px solid gray; }
+th { background:#ccc; }
 div { margin-top:20px; text-align:center; }
 </style>
 <h1>FINDBUGS</h1>
