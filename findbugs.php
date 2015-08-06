@@ -22,7 +22,6 @@ $startnum = ($page-1) * $perpagenum;
 $sql = "select * from bugs order by id desc limit $startnum,$perpagenum";
 $rs = mysql_query($sql); $content = mysql_fetch_array($rs);    
 if ($total) {    
-
   echo "<table><tr><th>Project</th><th>User</th><th>Bug</th><th>Comment</th><th>Time</th></tr>\n";
   do {    
 ?>
