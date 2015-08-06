@@ -29,7 +29,7 @@ if ($total) {
   <tr>    
     <td><?php echo $content['project'];?></td>    
     <td><?php echo $content['user'];?></td>    
-    <td><?php echo $content['bug'];?></td>    
+    <td style="white-space: pre-wrap;"><?php echo $content['bug'];?></td>    
     <td><?php echo $content['comment'];?></td>    
     <td><?php echo $content['create_time'];?></td>    
   </tr>
