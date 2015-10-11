@@ -3,17 +3,28 @@
 _url='http://v.netsnail.com/'
 _dir='/mnt/movies/'
 
-download() {
+get_purl() {
   _n=1
   curl $_url 2>/dev/null |sed -n 's/<a href="\(.*\)">\(.*\)<\/a>/\1 \2/p' |awk '{print $3"\t"$1}' |sort -t '-' -k3 -k2M -nk1 |awk '{print $2}' |while read i; do
     if [ $1 -eq $((_n++)) ]; then
-      curl $_url$i 2>/dev/null |grep -i -E ".mkv\"|.rmvb\"|.mp4\"" |sed -n 's/<a href="\(.*\)">.*/\1/p' |while read f; do
-        _res="$_url$i$f"
-        echo downloading $_res ...
-        lftp -c "pget -O $_dir -n10 \"$_res\""
-      done
+      echo "$_url$i"
     fi
   done
+}
+
+list_durl() {
+  curl $1 2>/dev/null |grep -i -E ".mkv\"|.rmvb\"|.mp4\"" |sed -n 's/<a href="\(.*\)">[^:]*...\(.*\)/\1\2/p'
+}
+
+get_durl() {
+  curl $1 2>/dev/null |grep -i -E ".mkv\"|.rmvb\"|.mp4\"" |sed -n 's/<a href="\(.*\)">.*/\1/p' |while read f; do
+    echo "$1$f"
+  done
+}
+
+download() {
+  echo downloading \"$1\" ...
+  lftp -c "pget -O $_dir -n10 \"$1\""
 }
 
 list() {
@@ -25,11 +36,17 @@ case "$1" in
   l)
     list $2
   ;;
+  ld)
+    _purl=`get_purl $2`
+    list_durl "$_purl"
+  ;;
   ll)
     ls -tr1 $_dir |awk '{print NR"\t"$1}'
   ;;
   d)
-    download $2
+    _purl=`get_purl $2`
+    _durl=`get_durl "$_purl"`
+    download "$_durl"
   ;;
   dd)
     ls -tr1 $_dir |awk 'NR=="'$2'"{print "rm -fv \"'$_dir'"$1"\""}' |sh
