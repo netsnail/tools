@@ -32,19 +32,27 @@ list() {
 case "$1" in
   l)
     list $2
-  ;;
+  ;; 
   ld)
     _purl=`get_purl $2`
     list_durl "$_purl"
-  ;;
-  ll)
-    ls -tr1 $_dir |awk '{print NR"\t"$1}'
   ;;
   d)
     _purl=`get_purl $2`
     download "$_purl"
   ;;
+  dl)
+    ls -tr1 $_dir |awk '{print NR"\t"$1}'
+  ;; 
   dd)
     ls -tr1 $_dir |awk 'NR=="'$2'"{print "rm -fv \"'$_dir'"$1"\""}' |sh
+  ;;
+  *)
+    echo -e "Usage: $0 [options]"
+    echo -e " l  \t list resources"
+    echo -e " ld \t list directory"
+    echo -e " d  \t download destination"
+    echo -e " dl \t downloaded list"
+    echo -e " dd \t delete destination"
   ;;
 esac
