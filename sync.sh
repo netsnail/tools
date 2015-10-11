@@ -16,15 +16,12 @@ list_durl() {
   curl $1 2>/dev/null |grep -i -E ".mkv\"|.rmvb\"|.mp4\"" |sed -n 's/<a href="\(.*\)">[^:]*...\(.*\)/\1\2/p'
 }
 
-get_durl() {
-  curl $1 2>/dev/null |grep -i -E ".mkv\"|.rmvb\"|.mp4\"" |sed -n 's/<a href="\(.*\)">.*/\1/p' |while read f; do
-    echo "$1$f"
-  done
-}
-
 download() {
-  echo downloading \"$1\" ...
-  lftp -c "pget -O $_dir -n10 \"$1\""
+  curl $1 2>/dev/null |grep -i -E ".mkv\"|.rmvb\"|.mp4\"" |sed -n 's/<a href="\(.*\)">.*/\1/p' |while read f; do
+    _dfile="$1$f"
+    echo downloading \"$dfile\" ...
+    lftp -c "pget -O $_dir -n10 \"$dfile\""
+  done
 }
 
 list() {
@@ -45,8 +42,7 @@ case "$1" in
   ;;
   d)
     _purl=`get_purl $2`
-    _durl=`get_durl "$_purl"`
-    download "$_durl"
+    download "$_purl"
   ;;
   dd)
     ls -tr1 $_dir |awk 'NR=="'$2'"{print "rm -fv \"'$_dir'"$1"\""}' |sh
