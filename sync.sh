@@ -19,8 +19,8 @@ list_durl() {
 download() {
   curl $1 2>/dev/null |grep -i -E ".mkv\"|.rmvb\"|.mp4\"" |sed -n 's/<a href="\(.*\)">.*/\1/p' |while read f; do
     _dfile="$1$f"
-    echo downloading \"$dfile\" ...
-    lftp -c "pget -O $_dir -n10 \"$dfile\""
+    echo downloading \"$_dfile\" ...
+    lftp -c "pget -O $_dir -n10 \"$_dfile\""
   done
 }
 
