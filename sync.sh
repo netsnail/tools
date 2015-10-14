@@ -42,10 +42,10 @@ case "$1" in
     download "$_purl"
   ;;
   dl)
-    ls -tr1 $_dir |awk '{print NR"\t"$1}'
+    ls -tr1 $_dir |awk '{print NR"\t"$0}'
   ;; 
   dd)
-    ls -tr1 $_dir |awk 'NR=="'$2'"{print "rm -fv \"'$_dir'"$1"\""}' |sh
+    ls -tr1 $_dir |awk 'NR=="'$2'"{print "rm -fv \"'$_dir'"$0"\""}' |sh
   ;;
   *)
     echo -e "Usage: $0 [options]"
