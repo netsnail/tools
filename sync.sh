@@ -29,6 +29,15 @@ list() {
   curl $_url 2>/dev/null |sed -n 's/<a href="\(.*\)">\(.*\)<\/a>/\1 \2/p' |awk '{print $3"\t"$1"\t"$2}' |sort -t '-'  -k3 -k2M -nk1 |awk '{print NR"\t"$3}' |tail -$_n
 }
 
+delete_purl() {
+  _n=1
+  curl $_url 2>/dev/null |sed -n 's/<a href="\(.*\)">\(.*\)<\/a>/\1 \2/p' |awk '{print $3"\t"$1"\t"$2}' |sort -t '-' -k3 -k2M -nk1 |awk '{print $3}' |while read i; do
+    if [ $1 -eq $((_n++)) ]; then
+      echo "${i%..&gt;}*"
+    fi
+  done
+}
+
 case "$1" in
   l)
     list $2
@@ -47,6 +56,13 @@ case "$1" in
   dd)
     ls -tr1 $_dir |awk 'NR=="'$2'"{print "rm -fv \"'$_dir'"$0"\""}' |sh
   ;;
+  ddr)
+    _file=`delete_purl $2`
+    echo delete $_file
+    if [[ "$3" == "y" ]]; then
+	echo "ssh -p22 tiger@netsnail.com rm -rfv \"/home/tiger/Movies/$_file\"" |sh
+    fi
+  ;;
   *)
     echo -e "Usage: $0 [options]"
     echo -e " l  \t list resources"
@@ -54,5 +70,7 @@ case "$1" in
     echo -e " d  \t download destination"
     echo -e " dl \t downloaded list"
     echo -e " dd \t delete destination"
+    echo -e " ddr\t delete remote destination"
   ;;
 esac
+
