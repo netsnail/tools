@@ -33,7 +33,7 @@ delete_purl() {
   _n=1
   curl $_url 2>/dev/null |sed -n 's/<a href="\(.*\)">\(.*\)<\/a>/\1 \2/p' |awk '{print $3"\t"$1"\t"$2}' |sort -t '-' -k3 -k2M -nk1 |awk '{print $3}' |while read i; do
     if [ $1 -eq $((_n++)) ]; then
-      echo "${i%..&gt;}*"
+      echo "${i/%..&gt;/*}"
     fi
   done
 }
