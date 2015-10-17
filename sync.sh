@@ -42,7 +42,7 @@ case "$1" in
   l)
     list $2
   ;; 
-  ld)
+  lr)
     _purl=`get_purl $2`
     list_durl "$_purl"
   ;;
@@ -50,13 +50,13 @@ case "$1" in
     _purl=`get_purl $2`
     download "$_purl"
   ;;
-  dl)
+  ll)
     ls -tr1 $_dir |awk '{print NR"\t"$0}'
   ;; 
-  dd)
+  dl)
     ls -tr1 $_dir |awk 'NR=="'$2'"{print "rm -fv \"'$_dir'"$0"\""}' |sh
   ;;
-  ddr)
+  dr)
     _file=`delete_purl $2`
     echo delete $_file
     if [[ "$3" == "y" ]]; then
@@ -65,12 +65,12 @@ case "$1" in
   ;;
   *)
     echo -e "Usage: $0 [options]"
-    echo -e " l  \t list resources"
-    echo -e " ld \t list directory"
+    echo -e " l  \t list url resources"
+    echo -e " lr \t list remote directory"
     echo -e " d  \t download destination"
-    echo -e " dl \t downloaded list"
-    echo -e " dd \t delete destination"
-    echo -e " ddr\t delete remote destination"
+    echo -e " ll \t list local directory"
+    echo -e " dl \t delete local destination"
+    echo -e " dr \t delete remote destination"
   ;;
 esac
 
