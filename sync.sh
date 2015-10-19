@@ -47,10 +47,12 @@ case "$1" in
     list $2
   ;; 
   lr)
+    test -z $2 && exit -1
     _purl=`get_purl $2`
     list_durl "$_purl"
   ;;
   d)
+    test -z $2 && exit -2
     _purl=`get_purl $2`
     download "$_purl"
   ;;
@@ -58,9 +60,11 @@ case "$1" in
     ls -tr1 $_dir |awk '{print NR"\t"$0}'
   ;; 
   dl)
+    test -z $2 && exit -3
     ls -tr1 $_dir |awk 'NR=="'$2'"{print "rm -fv \"'$_dir'"$0"\""}' |sh
   ;;
   dr)
+    test -z $2 && exit -4
     _file=`delete_purl $2`
     echo delete $_file
     if [[ "$3" == "y" ]]; then
