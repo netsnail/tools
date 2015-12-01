@@ -1,0 +1,10 @@
+#!/bin/bash
+
+_no=$1
+_x=$2
+_cmd=/data/bin/_tomcat
+
+[ "$(id -u)" != "0" ] && { echo "You must be root"; exit 1; }
+[ "out" == "$_x" ] && { $_cmd $_no out; exit 0; }
+
+su -l www-data -s /bin/bash -c "$_cmd $_no $_x"
