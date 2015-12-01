@@ -9,7 +9,7 @@ TOMCAT_BASE="/data/tomcat$1"
 PROJECT_NAME=`sed -n 's/.*docBase="\/data\/www\/\(.*\)".*/\1/p' $TOMCAT_BASE/conf/server.xml`
 
 export LOGGING_CONFIG="-D______tomcat$1=$PROJECT_NAME -Djava.util.logging.config.file=$TOMCAT_BASE/conf/logging.properties"
-export CATALINA_OPTS="-Xms218m -Xmx2048m -Djava.awt.headless=true -verbose:gc"
+export CATALINA_OPTS="-server -Xms2048m -Xmx10240m -XX:PermSize=128m -XX:MaxPermSize=512m -Djava.awt.headless=true -verbose:gc"
 
 case "$2" in
         start)
