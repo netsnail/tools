@@ -1,0 +1,12 @@
+#!/bin/bash
+export LANG=zh_CN.GBK
+export LC_ALL=zh_CN.GBK
+
+_f=$1
+_t=/tmp/$RANDOM
+mkdir -v -p $_t
+
+7z -o$_t x "$_f"
+convmv -f gbk -t utf8 $_t -r --notest
+mv -v -f $_t/* .
+rmdir -v $_t
