@@ -2,10 +2,11 @@
 
 _t=/tmp/$RANDOM; mkdir -v $_t || exit 1
 
-wget -O$_t -k "https://raw.githubusercontent.com/netsnail/tools/master/install/_tomcat"
-wget -O$_t -k "https://raw.githubusercontent.com/netsnail/tools/master/install/tomcat"
-wget -O$_t -k "https://raw.githubusercontent.com/netsnail/tools/master/install/limits.conf"
-wget -O$_t -k "https://raw.githubusercontent.com/netsnail/tools/master/install/my.sh"
+cd $_t
+wget -k "https://raw.githubusercontent.com/netsnail/tools/master/install/_tomcat"
+wget -k "https://raw.githubusercontent.com/netsnail/tools/master/install/tomcat"
+wget -k "https://raw.githubusercontent.com/netsnail/tools/master/install/limits.conf"
+wget -k "https://raw.githubusercontent.com/netsnail/tools/master/install/my.sh"
 
 mkdir -pv /data/bin/ || exit 2
 
