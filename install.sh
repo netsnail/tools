@@ -22,4 +22,4 @@ chmod 755 /data/bin/tomcat
 
 rm -fv $_t/* && rmdir -v $_t
 
-echo "`whoami` ALL=(ALL) NOPASSWD: /data/bin/tomcat" >> /etc/sudoers
+echo "www ALL=(ALL) NOPASSWD: /data/bin/tomcat" >> /etc/sudoers
