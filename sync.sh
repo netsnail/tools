@@ -34,9 +34,12 @@ delete_purl() {
   curl $_url 2>/dev/null |sed -n 's/<a href="\(.*\)">\(.*\)<\/a>/\1 \2/p' |awk '{print $3"\t"$1"\t"$2}' |sort -t '-' -k3 -k2M -nk1 |awk '{print $3}' |while read i; do
     if [ $1 -eq $((_n++)) ]; then
       _t="${i/%..&gt;/*}"
-      _t="${_t//(/\\(}"
       _t="${_t//$/\\$}"
+      _t="${_t//&amp;/\\&}"
+      _t="${_t//(/\\(}"
       _t="${_t//)/\\)}"
+      _t="${_t//[/\\[}"
+      _t="${_t//]/\\]}"
       echo $_t
     fi
   done
