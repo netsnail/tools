@@ -1,4 +1,5 @@
 #!/bin/bash
+# base on systemrescuecd
 
 set -x
 cd /root
