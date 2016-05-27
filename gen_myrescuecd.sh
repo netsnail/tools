@@ -15,6 +15,6 @@ cp -pr mygentoo/squashfs-root/lib/modules /tmp/myinitram/lib/
 rm -r /tmp/myinitram
 
 # 创建sysrcd.dat
-rm -r mygentoo_/squashfs-root/usr/portage/*
+rm -r mygentoo_/squashfs-root/usr/portage
 rm -r mygentoo_/squashfs-root/usr/src/*
 mksquashfs mygentoo_/squashfs-root sysrcd.dat -noappend
