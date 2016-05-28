@@ -4,8 +4,8 @@
 set -x
 
 # create snapshot
-btrfs subvolume delete   -c       myrescuer_
-btrfs subvolume snapshot myrescuer myrescuer_
+btrfs subvolume delete   -c             myrescuer_
+btrfs subvolume snapshot myrescuer      myrescuer_
 
 # create initram.xz
 rm -rf  /tmp/__initram
