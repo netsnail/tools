@@ -31,6 +31,9 @@ wget $_jdk_url -O /tmp/jdk.tar.xz && tar -xvf /tmp/jdk.tar.xz -C /data
 wget $_tomcat_url -O /tmp/tomcat.tar.xz && tar -xvf /tmp/tomcat.tar.xz -C /data && \
 chown -R $_user.root /data/tomcat* && chown -R www-data.www-data /data/tomcat*/{logs,work,temp}
 
+mkdir /data/www && chown $_user.$_user /data/www
+
+echo "complete!"
 
 
 
