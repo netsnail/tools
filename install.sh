@@ -17,10 +17,10 @@ wget -k "https://raw.githubusercontent.com/netsnail/tools/master/install/my.sh" 
 
 mkdir -pv $_install_dir/bin/ || exit 2;
 
-cp -iv $_t/_tomcat 	$_install_dir/bin/
-cp -iv $_t/tomcat 	$_install_dir/bin/
-cp -iv $_t/limits.conf 	/etc/security/
-cp -iv $_t/my.sh 	/etc/profile.d/
+cp -iv $_t/_tomcat      $_install_dir/bin/
+cp -iv $_t/tomcat       $_install_dir/bin/
+cp -iv $_t/limits.conf  /etc/security/
+cp -iv $_t/my.sh        /etc/profile.d/
 
 chmod 755 /etc/profile.d/my.sh
 chmod 644 /etc/security/limits.conf
@@ -34,10 +34,11 @@ wget $_jdk_url -O /tmp/jdk.tar.xz 2>/dev/null || { echo "downloading jdk failed!
 tar -xf /tmp/jdk.tar.xz -C $_install_dir
 wget $_tomcat_url -O /tmp/tomcat.tar.xz 2>/dev/null || { echo "downloading tomcat failed!"; exit 4; }
 tar -xf /tmp/tomcat.tar.xz -C $_install_dir
-chown -R $_user $_install_dir/tomcat* && chown -R www-data $_install_dir/tomcat*/{logs,work,temp}
-mkdir $_install_dir/www && chown $_user $_install_dir/www
+chown -R www-data.www-data $_install_dir/tomcat*
+chown $_user $_install_dir/tomcat*/conf
+chown $_user $_install_dir/tomcat*/conf/server.xml
+chmod g+rx $_install_dir/tomcat*/conf
+chmod g+r $_install_dir/tomcat*/conf/server.xml
+mkdir $_install_dir/www && chown $_user.root $_install_dir/www
 
 echo -e "\ncomplete :)"
-
-
-
