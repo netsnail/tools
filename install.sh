@@ -37,7 +37,7 @@ tar -xf /tmp/tomcat.tar.xz -C $_install_dir
 chown -R www-data.www-data $_install_dir/tomcat*
 chown $_user $_install_dir/tomcat*/conf
 chown $_user $_install_dir/tomcat*/conf/server.xml
-chmod g+rx $_install_dir/tomcat*/conf
+chmod g+rx $_install_dir/tomcat*/{conf,logs}
 chmod g+r $_install_dir/tomcat*/conf/server.xml
 mkdir $_install_dir/www && chown $_user.root $_install_dir/www
 
