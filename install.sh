@@ -33,7 +33,7 @@ chown -R $_user.root /data/tomcat* && chown -R www-data.www-data /data/tomcat*/{
 
 mkdir /data/www && chown $_user.$_user /data/www
 
-echo "complete!"
+echo "complete :)"
 
 
 
