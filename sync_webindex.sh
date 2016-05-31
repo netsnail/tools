@@ -1,6 +1,6 @@
 #!/bin/bash
 
-_url='http://v.netsnail.com/'
+_url='http://movies.xxx.com/'
 _dir='/mnt/movies/'
 
 get_purl() {
