@@ -1,7 +1,7 @@
 #!/bin/sh
 NAME=$1
 VERSION=0.1
-EMAIL=root@mail.com
+EMAIL=admin@mail.com
 test -z $NAME && NAME=main
 
 test -d src && [ ! -e Makefile.am ] && {
