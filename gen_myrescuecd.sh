@@ -20,7 +20,7 @@ cp -pr  myrescuer_/squashfs-root/usr/share/locale       /tmp/__locale/
 rm -r   myrescuer_/squashfs-root/usr/share/locale/*
 mv      /tmp/__locale/locale.alias      myrescuer_/squashfs-root/usr/share/locale/
 mv      /tmp/__locale/zh_CN             myrescuer_/squashfs-root/usr/share/locale/
-echo >  myrescuer_/squashfs-root/root/.bash_history
+
 rm -r   myrescuer_/squashfs-root/usr/share/doc
 rm -r   myrescuer_/squashfs-root/usr/portage
 rm -r   myrescuer_/squashfs-root/usr/src
@@ -30,6 +30,7 @@ rm -r   myrescuer_/squashfs-root/var/tmp/*
 rm -r   myrescuer_/squashfs-root/var/log/*
 rm -f   myrescuer_/squashfs-root/boot/*.*
 rm -rf  myrescuer_/squashfs-root/tmp/*
+echo >  myrescuer_/squashfs-root/root/.bash_history
 
 # create sysrcd.dat
 mksquashfs myrescuer_/squashfs-root sysrcd.dat          -noappend -comp xz
