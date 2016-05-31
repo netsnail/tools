@@ -1,0 +1,6 @@
+#!/bin/bash
+
+wget -c -r \
+ -nd \
+ -np -k -L -p \
+ $1
