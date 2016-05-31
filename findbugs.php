@@ -1,5 +1,5 @@
 <?php header("Content-Type: text/html; charset=UTF-8"); ?>
-<title>BUGS LIST</title>
+<title>FINDBUGS</title>
 <style>
 * { text-align:center; font-size:12px; } 
 h1 { font-size:28px; }
