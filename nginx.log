@@ -1,0 +1,1 @@
+./configure --prefix=/data/nginx --user=www-data --group=www-data --without-http_uwsgi_module --without-http_scgi_module --with-http_ssl_module --with-http_stub_status_module
