@@ -1,1 +1,38 @@
 ./configure --prefix=/data/nginx --user=www-data --group=www-data --without-http_uwsgi_module --without-http_scgi_module --with-http_ssl_module --with-http_stub_status_module
+
+    client_max_body_size 30M;
+    client_header_buffer_size 512k;
+    large_client_header_buffers 4 512k;
+
+        allow 10.0.0.0/8;
+        allow 172.16.0.0/16;
+        deny all;
+
+
+        location /birt {
+            alias /data/www/birt;
+
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $http_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto https;
+            proxy_redirect http:// https://;
+    
+            proxy_pass http://birt;
+        }
+
+
+        include blockips.conf;
+
+        ssl                         on;
+        ssl_certificate             /data/nginx/cert/server.cer;
+        ssl_certificate_key         /data/nginx/cert/server.key;
+        ssl_client_certificate      /data/nginx/cert/ca.cer;
+        ssl_verify_client           off;
+
+
+    upstream birt {
+        ip_hash;
+        server 172.16.128.15:8081 fail_timeout=30s weight=9;
+        server 172.16.128.16:8081 fail_timeout=30s weight=9;
+    }
