@@ -3,9 +3,10 @@
 _url='http://movies.xxx.com/'
 _dir='/mnt/movies/'
 
+_curl='curl -k -A --user-agent "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36" '
 get_purl() {
   _n=1
-  curl -k $_url 2>/dev/null |sed -n 's/<a href="\(.*\)">\(.*\)<\/a>/\1 \2/p' |awk '{print $3"\t"$1}' |sort -t '-' -k3 -k2M -nk1 |awk '{print $2}' |while read i; do
+  $_curl $_url 2>/dev/null |sed -n 's/<a href="\(.*\)">\(.*\)<\/a>/\1 \2/p' |awk '{print $3"\t"$1}' |sort -t '-' -k3 -k2M -nk1 |awk '{print $2}' |while read i; do
     if [ $1 -eq $((_n++)) ]; then
       echo "$_url$i"
     fi
@@ -13,25 +14,25 @@ get_purl() {
 }
 
 list_durl() {
-  curl -k $1 2>/dev/null |grep -i -E ".mkv\"|.rmvb\"|.mp4\"" |sed -n 's/<a href="\(.*\)">[^:]*...\(.*\)/\1\2/p'
+  $_curl $1 2>/dev/null |grep -i -E ".mkv\"|.rmvb\"|.mp4\"" |sed -n 's/<a href="\(.*\)">[^:]*...\(.*\)/\1\2/p'
 }
 
 download() {
-  curl -k $1 2>/dev/null |grep -i -E ".mkv\"|.rmvb\"|.mp4\"" |sed -n 's/<a href="\(.*\)">.*/\1/p' |while read f; do
+  $_curl $1 2>/dev/null |grep -i -E ".mkv\"|.rmvb\"|.mp4\"" |sed -n 's/<a href="\(.*\)">.*/\1/p' |while read f; do
     _dfile="$1$f"
     echo downloading \"$_dfile\" ...
-    lftp -c "set ssl:verify-certificate no; pget -O $_dir -n10 \"$_dfile\""
+    lftp -c "debug 0;set ssl:verify-certificate no;set http:user-agent Mozilla/5.0;pget -O $_dir -n5 '$_dfile'"
   done
 }
 
 list() {
   _n=10 ; test -z "$1" || _n=$1
-  curl -k $_url 2>/dev/null |sed -n 's/<a href="\(.*\)">\(.*\)<\/a>/\1 \2/p' |awk '{print $3"\t"$1"\t"$2}' |sort -t '-'  -k3 -k2M -nk1 |awk '{print NR"\t"$3}' |tail -$_n
+  $_curl $_url 2>/dev/null |sed -n 's/<a href="\(.*\)">\(.*\)<\/a>/\1 \2/p' |awk '{print $3"\t"$1"\t"$2}' |sort -t '-'  -k3 -k2M -nk1 |awk '{print NR"\t"$3}' |tail -$_n
 }
 
 delete_purl() {
   _n=1
-  curl -k $_url 2>/dev/null |sed -n 's/<a href="\(.*\)">\(.*\)<\/a>/\1 \2/p' |awk '{print $3"\t"$1"\t"$2}' |sort -t '-' -k3 -k2M -nk1 |awk '{print $3}' |while read i; do
+  $_curl $_url 2>/dev/null |sed -n 's/<a href="\(.*\)">\(.*\)<\/a>/\1 \2/p' |awk '{print $3"\t"$1"\t"$2}' |sort -t '-' -k3 -k2M -nk1 |awk '{print $3}' |while read i; do
     if [ $1 -eq $((_n++)) ]; then
       _t="${i/%..&gt;/*}"
       _t="${_t//$/\\$}"
