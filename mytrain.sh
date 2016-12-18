@@ -7,7 +7,7 @@ open() {
   chrome "https://kyfw.12306.cn/otn/confirmPassenger/initDc"
 }
 ok() {
-  mpv ~/Musics/Aqua\ -\ Around\ The\ World.mp3
+  mpg123 ~/Musics/Aqua\ -\ Around\ The\ World.mp3
 }
 query() {
   _date=$1
@@ -26,23 +26,37 @@ query() {
 }
 
 _date=2016-12-30
-_from=BJP
+_dest=BJP
 
-# 1303 郑州
-query $_date $_from ZZF -1
-# 1303 开封
-query $_date $_from KFF -1
-# 1303 民权
-query $_date $_from MQF -1
-# 1303 曹县
-query $_date $_from CXK -1
+if true
+then
+
 # k105,1303 商丘
-query $_date $_from SQF "-1,-2"
+query $_date $_dest SQF "-1,-2"
 # k105 亳州
-query $_date $_from BZH -1
+query $_date $_dest BZH -1
+# 1303 民权
+query $_date $_dest MQF -1
 # k105 阜阳
-query $_date $_from FYH -1
-# k105,1303 菏泽
-query $_date $_from HIK "-2,-3"
-                                                                                                        
-                                                                     
+query $_date $_dest FYH -1
+# 1303 开封
+query $_date $_dest KFF -1
+# 1303 郑州
+query $_date $_dest ZZF -1
+
+else
+
+# k148,1488 商丘
+query $_date SQF $_dest "-1,-2,-3"
+# k148 亳州
+query $_date BZH $_dest -1
+# 1488 民权
+query $_date MQF $_dest -1
+# k148 阜阳
+query $_date FYH $_dest -2
+# 1488 开封
+query $_date KFF $_dest -1
+# 1488 郑州
+query $_date ZZF $_dest -6
+
+fi
