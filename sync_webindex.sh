@@ -71,7 +71,7 @@ case "$1" in
     test -z $2 && exit -4
     _file=`delete_purl $2`
     echo delete $_file
-    if [[ "$3" == "y" ]]; then
+    if [[ -n "$_file" && "$3" == "y" ]]; then
 	echo "ssh -p22 tiger@netsnail.com rm -rfv \"/home/tiger/Movies/$_file\"" |sh
     fi
   ;;
