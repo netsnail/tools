@@ -9,7 +9,10 @@ TOMCAT_BASE="/data/tomcat$1"
 PROJECT_NAME=`sed -n 's/.*docBase="\/data\/www\/\(.*\)".*/\1/p' $TOMCAT_BASE/conf/server.xml`
 
 export LOGGING_CONFIG="-D______tomcat$1=$PROJECT_NAME -Djava.util.logging.config.file=$TOMCAT_BASE/conf/logging.properties"
-export CATALINA_OPTS="-server -Xms2048m -Xmx10240m -XX:PermSize=128m -XX:MaxPermSize=512m -XX:+DisableExplicitGC -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -Djava.awt.headless=true -verbose:gc -Duser.timezone=Asia/Shanghai -Djava.security.egd=file:/dev/./urandom -Dsun.font.fontmanager=sun.awt.X11FontManager"
+export CATALINA_OPTS="-server -Xms2048m -Xmx10240m -XX:PermSize=128m -XX:MaxPermSize=512m \
+        -XX:+DisableExplicitGC -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -XX:+HeapDumpOnOutOfMemoryError\
+        -Djava.awt.headless=true -verbose:gc -Duser.timezone=Asia/Shanghai \
+        -Djava.security.egd=file:/dev/./urandom -Dsun.font.fontmanager=sun.awt.X11FontManager"
 
 case "$2" in
         start)
