@@ -3,7 +3,7 @@
 ulimit -u 10240 -n 65535
 
 export LANG="en_US.UTF-8"
-export JAVA_HOME="/data/jdk7"
+export JAVA_HOME="/data/jdk8"
 
 TOMCAT_BASE="/data/tomcat$1"
 PROJECT_NAME=`sed -n 's/.*docBase="\/data\/www\/\(.*\)".*/\1/p' $TOMCAT_BASE/conf/server.xml`
