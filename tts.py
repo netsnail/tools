@@ -5,7 +5,13 @@ import random, os, re
 import commands, urllib
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 
-tts = 'ekho.sh'
+tts = '/bin/ekho.sh'
+tts_help = '''Syntax: http://ip/?txt=
+  txt, Send request to TTS server
+  p, Set delta pitch. Value range from -100 to 100 (percent)
+  a, Set delta volume. Value range from -100 to 100 (percent)
+  s, Set delta speed. Value range from -50 to 300 (percent)
+'''
 
 class MyHandler(BaseHTTPRequestHandler):
  
@@ -15,6 +21,13 @@ class MyHandler(BaseHTTPRequestHandler):
 
   def do_GET(self):
     txt = self.getparam('txt')
+    if txt == '0':
+      self.send_response(200)
+      self.send_header('Content-Type', 'text/plain')
+      self.end_headers()
+      self.wfile.write(tts_help)
+      return
+
     p = self.getparam('p')
     a = self.getparam('a')
     s = self.getparam('s')
